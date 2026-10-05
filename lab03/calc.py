@@ -5,3 +5,5 @@ res_add = a + b
 print(f'Результат сложения: {res_add}')
 res_sub = a - b
 print(f'Результат вычитания: {res_sub}')
+res_mul = a * b
+print(f'Результат умножения: {res_mul}')
