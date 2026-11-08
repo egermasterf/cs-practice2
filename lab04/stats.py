@@ -33,3 +33,56 @@ def read_valid(lines: list[str]) -> list[dict]:
         except ValueError:
             continue
     return records
+
+def average_by_city(records: list[dict]) -> dict:
+    sums = {}
+    counts = {}
+    for rec in records:
+        city = rec["city"]
+        sums[city] = sums.get(city, 0) + rec["temp"]
+        counts[city] = counts.get(city, 0) + 1
+    return {city: round(sums[city] / counts[city], 1) for city in sums}
+
+
+def warmest_city(records: list[dict]) -> str:
+    if not records:
+        raise ValueError("Нет записей")
+
+    sums = {}
+    counts = {}
+    for rec in records:
+        city = rec["city"]
+        sums[city] = sums.get(city, 0) + rec["temp"]
+        counts[city] = counts.get(city, 0) + 1
+
+    averages = {city: sums[city] / counts[city] for city in sums}
+    best_value = max(averages.values())
+    candidates = [city for city, avg in averages.items() if avg == best_value]
+    return min(candidates)
+
+
+def average_by_city(records: list[dict]) -> dict:
+    sums = {}
+    counts = {}
+    for rec in records:
+        city = rec["city"]
+        sums[city] = sums.get(city, 0) + rec["temp"]
+        counts[city] = counts.get(city, 0) + 1
+    return {city: round(sums[city] / counts[city], 1) for city in sums}
+
+
+def warmest_city(records: list[dict]) -> str:
+    if not records:
+        raise ValueError("Нет записей")
+
+    sums = {}
+    counts = {}
+    for rec in records:
+        city = rec["city"]
+        sums[city] = sums.get(city, 0) + rec["temp"]
+        counts[city] = counts.get(city, 0) + 1
+
+    averages = {city: sums[city] / counts[city] for city in sums}
+    best_value = max(averages.values())
+    candidates = [city for city, avg in averages.items() if avg == best_value]
+    return min(candidates)  # первый по алфавиту
