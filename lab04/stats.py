@@ -14,14 +14,14 @@ def parse_record(line: str) -> dict:
         raise ValueError(f"Пустой город или дата: {line!r}")
 
     try:
-        temp = float(temp_text)
+        temp = float(temp_text.replace(",", "."))
     except ValueError:
         raise ValueError(f"Температура не число: {temp_text!r}")
 
     if not math.isfinite(temp):
         raise ValueError(f"Недопустимая температура: {temp_text!r}")
 
-    return {"city": city, "temp": temp, "date": date}
+    return {"city": city, "temperature": temp, "date": date}
 
 def read_valid(lines: list[str]) -> list[dict]:
     records = []
@@ -39,7 +39,7 @@ def average_by_city(records: list[dict]) -> dict:
     counts = {}
     for rec in records:
         city = rec["city"]
-        sums[city] = sums.get(city, 0) + rec["temp"]
+        sums[city] = sums.get(city, 0) + rec["temperature"]
         counts[city] = counts.get(city, 0) + 1
     return {city: round(sums[city] / counts[city], 1) for city in sums}
 
@@ -52,7 +52,7 @@ def warmest_city(records: list[dict]) -> str:
     counts = {}
     for rec in records:
         city = rec["city"]
-        sums[city] = sums.get(city, 0) + rec["temp"]
+        sums[city] = sums.get(city, 0) + rec["temperature"]
         counts[city] = counts.get(city, 0) + 1
 
     averages = {city: sums[city] / counts[city] for city in sums}
@@ -66,7 +66,7 @@ def average_by_city(records: list[dict]) -> dict:
     counts = {}
     for rec in records:
         city = rec["city"]
-        sums[city] = sums.get(city, 0) + rec["temp"]
+        sums[city] = sums.get(city, 0) + rec["temperature"]
         counts[city] = counts.get(city, 0) + 1
     return {city: round(sums[city] / counts[city], 1) for city in sums}
 
@@ -79,7 +79,7 @@ def warmest_city(records: list[dict]) -> str:
     counts = {}
     for rec in records:
         city = rec["city"]
-        sums[city] = sums.get(city, 0) + rec["temp"]
+        sums[city] = sums.get(city, 0) + rec["temperature"]
         counts[city] = counts.get(city, 0) + 1
 
     averages = {city: sums[city] / counts[city] for city in sums}
