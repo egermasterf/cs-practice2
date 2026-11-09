@@ -41,3 +41,14 @@ def top_errors(lines: list[str], n: int) -> list[list]:
 
     ordered = sorted(counts.items(), key=lambda pair: (-pair[1], pair[0]))
     return [[message, count] for message, count in ordered[:max(n, 0)]]
+
+
+def format_report(counts: dict, errors: list[list]) -> str:
+    lines = ["Отчёт по журналу", ""]
+    for level in sorted(counts):
+        lines.append(f"{level}: {counts[level]}")
+    lines.append("")
+    lines.append("Частые ошибки:")
+    for message, count in errors:
+        lines.append(f"- {message} — {count}")
+    return "\n".join(lines) + "\n"
