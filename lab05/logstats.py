@@ -25,3 +25,19 @@ def count_levels(lines: list[str]) -> dict:
         counts[level] = counts.get(level, 0) + 1
     return counts
 
+
+def top_errors(lines: list[str], n: int) -> list[list]:
+    counts = {}
+    for line in lines:
+        if not line.strip():
+            continue
+        try:
+            event = parse_event(line)
+        except ValueError:
+            continue
+        if event["level"] == "ERROR":
+            message = event["message"]
+            counts[message] = counts.get(message, 0) + 1
+
+    ordered = sorted(counts.items(), key=lambda pair: (-pair[1], pair[0]))
+    return [[message, count] for message, count in ordered[:max(n, 0)]]
